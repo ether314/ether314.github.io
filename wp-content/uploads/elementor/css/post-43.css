@@ -1,5 +1,5 @@
-.elementor-43 .elementor-element.elementor-element-22429596 > .elementor-container {max-width: 1293px;}
-.elementor-43 .elementor-element.elementor-element-22429596 {transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;padding: 50px 0px 50px 0px;}
+.elementor-43 .elementor-element.elementor-element-22429596, .elementor-43 .elementor-element.elementor-element-22429596 > .elementor-background-overlay {border-radius: 0px 0px 0px 0px;}
+.elementor-43 .elementor-element.elementor-element-22429596 {transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;margin-top: -70px;margin-bottom: -70px;padding: 0px 0px 0px 0px;}
 .elementor-43 .elementor-element.elementor-element-22429596 > .elementor-background-overlay {transition: background .3s,border-radius .3s,opacity .3s;}
 .elementor-43 .elementor-element.elementor-element-6b287226 > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget:not(:last-child) {margin-bottom: 30px;}
 .elementor-43 .elementor-element.elementor-element-15eefe44 {text-align: left;}
@@ -28,7 +28,7 @@
 .elementor-43 .elementor-element.elementor-element-98f82de .elementor-post__card .elementor-post__badge {margin: 20px;}
 .elementor-43 .elementor-element.elementor-element-98f82de .elementor-post__avatar img {width: 38px;height: 38px;}
 .elementor-43 .elementor-element.elementor-element-98f82de .elementor-post__thumbnail__link {margin-bottom: calc(38px / 2);}
-body.elementor-page-43 {animation-duration: 20ms;}
+body.elementor-page-43 {padding: -100px -100px -100px -100px;animation-duration: 20ms;}
 @media (max-width:1024px) {.elementor-43 .elementor-element.elementor-element-22429596 {padding: 50px 20px 50px 20px;}}
 @media (max-width:767px) {.elementor-43 .elementor-element.elementor-element-22429596 {padding: 30px 20px 30px 20px;}
 	.elementor-43 .elementor-element.elementor-element-98f82de .elementor-posts-container .elementor-post__thumbnail {padding-bottom: calc(.5 * 100%);}

@@ -1,5 +1,5 @@
-.aux-logo-header .aux-logo-anchor {max-width: 80px;}
-.aux-logo-header .aux-logo-anchor > img {max-height: 85px;}
+.aux-logo-header .aux-logo-anchor {max-width: 30px;}
+.aux-logo-header .aux-logo-anchor > img {max-height: 30px;}
 @media screen and (min-width: 700px) {.aux-framed .aux-side-frames, body.aux-framed:after, .aux-framed .aux-side-frames:before, .aux-framed .aux-side-frames:after {background-color: #111;}}
 .site-header-section .aux-header-elements:not(.aux-vertical-menu-elements), .site-header-section .aux-fill .aux-menu-depth-0 > .aux-item-content {height: 85px;}
 #site-header {background-color: #fff;}
