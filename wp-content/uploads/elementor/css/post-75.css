@@ -1,6 +1,7 @@
 .elementor-75 .elementor-element.elementor-element-4de60bdb > .elementor-container {max-width: 803px;}
-.elementor-75 .elementor-element.elementor-element-4de60bdb {background-color: #61ce70;transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;margin-top: -80px;margin-bottom: -80px;padding: 120px 0px 280px 0px;}
+.elementor-75 .elementor-element.elementor-element-4de60bdb:not(.elementor-motion-effects-element-type-background), .elementor-75 .elementor-element.elementor-element-4de60bdb > .elementor-motion-effects-container > .elementor-motion-effects-layer {background-color: #61ce70;}
 .elementor-75 .elementor-element.elementor-element-4de60bdb > .elementor-background-overlay {background-color: #e2e2e2;background-image: url("http://discoverdata.tk/wp-content/uploads/2019/03/istock_000026946270_us_capitol_flag_2500.jpg");background-position: center center;background-size: cover;opacity: .97;transition: background .3s,border-radius .3s,opacity .3s;}
+.elementor-75 .elementor-element.elementor-element-4de60bdb {transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;margin-top: -80px;margin-bottom: -80px;padding: 120px 0px 280px 0px;}
 .elementor-75 .elementor-element.elementor-element-4de60bdb > .elementor-shape-bottom svg {height: 314px;transform: translateX(-50%) rotateY(180deg);}
 .elementor-75 .elementor-element.elementor-element-1b0abf1c {text-align: center;}
 .elementor-75 .elementor-element.elementor-element-1b0abf1c.elementor-widget-heading .elementor-heading-title {color: #003091;}
@@ -16,7 +17,8 @@
 .elementor-75 .elementor-element.elementor-element-6b22742b .elementor-spacer-inner {height: 30px;}
 .elementor-75 .elementor-element.elementor-element-65ef3dae {color: #3d3d3d;font-family: "Roboto",Sans-serif;font-size: 19px;font-weight: 300;line-height: 1.7em;}
 .elementor-75 .elementor-element.elementor-element-51004c0.elementor-column .elementor-column-wrap {align-items: center;}
-.elementor-75 .elementor-element.elementor-element-51004c0 > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget:not(:last-child) {margin-bottom: 800px;}
+.elementor-75 .elementor-element.elementor-element-51004c0.elementor-column > .elementor-column-wrap > .elementor-widget-wrap {align-content: center;}
+.elementor-75 .elementor-element.elementor-element-51004c0 > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget:not(.elementor-widget__width-auto):not(.elementor-widget__width-initial):not(:last-child):not(.elementor-absolute) {margin-bottom: 800px;}
 .elementor-75 .elementor-element.elementor-element-2b57df9c > .elementor-container {max-width: 650px;}
 .elementor-75 .elementor-element.elementor-element-5e813697 {color: #3d3d3d;font-family: "Roboto",Sans-serif;font-size: 19px;font-weight: 300;line-height: 1.7em;}
 .elementor-75 .elementor-element.elementor-element-1a8c2bf3 > .elementor-container {max-width: 650px;}

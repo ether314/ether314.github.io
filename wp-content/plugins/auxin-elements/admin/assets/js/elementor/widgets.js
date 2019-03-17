@@ -60,6 +60,7 @@
                 function( $scope ) { 
                     $.fn.AuxinPageCoverAnimationInit( $scope );
                     $.fn.AuxinToggleListInit( $scope );
+                    $.fn.AuxinAppearAnimationsInit( $scope );
                 }
             
             );

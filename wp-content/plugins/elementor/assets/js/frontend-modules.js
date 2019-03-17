@@ -1,4 +1,4 @@
-/*! elementor - v2.4.7 - 18-02-2019 */
+/*! elementor - v2.5.8 - 15-03-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,12 +82,12 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 207);
+/******/ 	return __webpack_require__(__webpack_require__.s = 208);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 18:
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -191,7 +191,7 @@ exports.default = _class;
 
 /***/ }),
 
-/***/ 20:
+/***/ 19:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -201,15 +201,15 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _module = __webpack_require__(6);
+var _module = __webpack_require__(5);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _viewModule = __webpack_require__(7);
+var _viewModule = __webpack_require__(6);
 
 var _viewModule2 = _interopRequireDefault(_viewModule);
 
-var _masonry = __webpack_require__(21);
+var _masonry = __webpack_require__(20);
 
 var _masonry2 = _interopRequireDefault(_masonry);
 
@@ -225,32 +225,107 @@ exports.default = window.elementorModules = {
 
 /***/ }),
 
-/***/ 207:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _modules = __webpack_require__(20);
+var _viewModule = __webpack_require__(6);
+
+var _viewModule2 = _interopRequireDefault(_viewModule);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = _viewModule2.default.extend({
+
+	getDefaultSettings: function getDefaultSettings() {
+		return {
+			container: null,
+			items: null,
+			columnsCount: 3,
+			verticalSpaceBetween: 30
+		};
+	},
+
+	getDefaultElements: function getDefaultElements() {
+		return {
+			$container: jQuery(this.getSettings('container')),
+			$items: jQuery(this.getSettings('items'))
+		};
+	},
+
+	run: function run() {
+		var heights = [],
+		    distanceFromTop = this.elements.$container.position().top,
+		    settings = this.getSettings(),
+		    columnsCount = settings.columnsCount;
+
+		distanceFromTop += parseInt(this.elements.$container.css('margin-top'), 10);
+
+		this.elements.$items.each(function (index) {
+			var row = Math.floor(index / columnsCount),
+			    $item = jQuery(this),
+			    itemHeight = $item[0].getBoundingClientRect().height + settings.verticalSpaceBetween;
+
+			if (row) {
+				var itemPosition = $item.position(),
+				    indexAtRow = index % columnsCount,
+				    pullHeight = itemPosition.top - distanceFromTop - heights[indexAtRow];
+
+				pullHeight -= parseInt($item.css('margin-top'), 10);
+
+				pullHeight *= -1;
+
+				$item.css('margin-top', pullHeight + 'px');
+
+				heights[indexAtRow] += itemHeight;
+			} else {
+				heights.push(itemHeight);
+			}
+		});
+	}
+});
+
+/***/ }),
+
+/***/ 208:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _modules = __webpack_require__(19);
 
 var _modules2 = _interopRequireDefault(_modules);
 
-var _document = __webpack_require__(18);
+var _document = __webpack_require__(17);
 
 var _document2 = _interopRequireDefault(_document);
+
+var _stretchElement = __webpack_require__(209);
+
+var _stretchElement2 = _interopRequireDefault(_stretchElement);
+
+var _base = __webpack_require__(210);
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _modules2.default.frontend = {
 	Document: _document2.default,
 	tools: {
-		StretchElement: __webpack_require__(208)
+		StretchElement: _stretchElement2.default
+	},
+	handlers: {
+		Base: _base2.default
 	}
 };
 
 /***/ }),
 
-/***/ 208:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -334,71 +409,236 @@ module.exports = elementorModules.ViewModule.extend({
 
 /***/ }),
 
-/***/ 21:
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _viewModule = __webpack_require__(7);
+module.exports = elementorModules.ViewModule.extend({
+	$element: null,
 
-var _viewModule2 = _interopRequireDefault(_viewModule);
+	editorListeners: null,
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	onElementChange: null,
 
-module.exports = _viewModule2.default.extend({
+	onEditSettingsChange: null,
 
-	getDefaultSettings: function getDefaultSettings() {
-		return {
-			container: null,
-			items: null,
-			columnsCount: 3,
-			verticalSpaceBetween: 30
-		};
+	onGeneralSettingsChange: null,
+
+	onPageSettingsChange: null,
+
+	isEdit: null,
+
+	__construct: function __construct(settings) {
+		this.$element = settings.$element;
+
+		this.isEdit = this.$element.hasClass('elementor-element-edit-mode');
+
+		if (this.isEdit) {
+			this.addEditorListeners();
+		}
 	},
 
-	getDefaultElements: function getDefaultElements() {
-		return {
-			$container: jQuery(this.getSettings('container')),
-			$items: jQuery(this.getSettings('items'))
-		};
+	findElement: function findElement(selector) {
+		var $mainElement = this.$element;
+
+		return $mainElement.find(selector).filter(function () {
+			return jQuery(this).closest('.elementor-element').is($mainElement);
+		});
 	},
 
-	run: function run() {
-		var heights = [],
-		    distanceFromTop = this.elements.$container.position().top,
-		    settings = this.getSettings(),
-		    columnsCount = settings.columnsCount;
+	getUniqueHandlerID: function getUniqueHandlerID(cid, $element) {
+		if (!cid) {
+			cid = this.getModelCID();
+		}
 
-		distanceFromTop += parseInt(this.elements.$container.css('margin-top'), 10);
+		if (!$element) {
+			$element = this.$element;
+		}
 
-		this.elements.$items.each(function (index) {
-			var row = Math.floor(index / columnsCount),
-			    $item = jQuery(this),
-			    itemHeight = $item[0].getBoundingClientRect().height + settings.verticalSpaceBetween;
+		return cid + $element.attr('data-element_type') + this.getConstructorID();
+	},
 
-			if (row) {
-				var itemPosition = $item.position(),
-				    indexAtRow = index % columnsCount,
-				    pullHeight = itemPosition.top - distanceFromTop - heights[indexAtRow];
+	initEditorListeners: function initEditorListeners() {
+		var self = this;
 
-				pullHeight -= parseInt($item.css('margin-top'), 10);
+		self.editorListeners = [{
+			event: 'element:destroy',
+			to: elementor.channels.data,
+			callback: function callback(removedModel) {
+				if (removedModel.cid !== self.getModelCID()) {
+					return;
+				}
 
-				pullHeight *= -1;
+				self.onDestroy();
+			}
+		}];
 
-				$item.css('margin-top', pullHeight + 'px');
+		if (self.onElementChange) {
+			var elementType = self.getWidgetType() || self.getElementType();
 
-				heights[indexAtRow] += itemHeight;
-			} else {
-				heights.push(itemHeight);
+			var eventName = 'change';
+
+			if ('global' !== elementType) {
+				eventName += ':' + elementType;
+			}
+
+			self.editorListeners.push({
+				event: eventName,
+				to: elementor.channels.editor,
+				callback: function callback(controlView, elementView) {
+					var elementViewHandlerID = self.getUniqueHandlerID(elementView.model.cid, elementView.$el);
+
+					if (elementViewHandlerID !== self.getUniqueHandlerID()) {
+						return;
+					}
+
+					self.onElementChange(controlView.model.get('name'), controlView, elementView);
+				}
+			});
+		}
+
+		if (self.onEditSettingsChange) {
+			self.editorListeners.push({
+				event: 'change:editSettings',
+				to: elementor.channels.editor,
+				callback: function callback(changedModel, view) {
+					if (view.model.cid !== self.getModelCID()) {
+						return;
+					}
+
+					self.onEditSettingsChange(Object.keys(changedModel.changed)[0]);
+				}
+			});
+		}
+
+		['page', 'general'].forEach(function (settingsType) {
+			var listenerMethodName = 'on' + settingsType[0].toUpperCase() + settingsType.slice(1) + 'SettingsChange';
+
+			if (self[listenerMethodName]) {
+				self.editorListeners.push({
+					event: 'change',
+					to: elementor.settings[settingsType].model,
+					callback: function callback(model) {
+						self[listenerMethodName](model.changed);
+					}
+				});
 			}
 		});
+	},
+
+	getEditorListeners: function getEditorListeners() {
+		if (!this.editorListeners) {
+			this.initEditorListeners();
+		}
+
+		return this.editorListeners;
+	},
+
+	addEditorListeners: function addEditorListeners() {
+		var uniqueHandlerID = this.getUniqueHandlerID();
+
+		this.getEditorListeners().forEach(function (listener) {
+			elementorFrontend.addListenerOnce(uniqueHandlerID, listener.event, listener.callback, listener.to);
+		});
+	},
+
+	removeEditorListeners: function removeEditorListeners() {
+		var uniqueHandlerID = this.getUniqueHandlerID();
+
+		this.getEditorListeners().forEach(function (listener) {
+			elementorFrontend.removeListeners(uniqueHandlerID, listener.event, null, listener.to);
+		});
+	},
+
+	getElementType: function getElementType() {
+		return this.$element.data('element_type');
+	},
+
+	getWidgetType: function getWidgetType() {
+		var widgetType = this.$element.data('widget_type');
+
+		if (!widgetType) {
+			return;
+		}
+
+		return widgetType.split('.')[0];
+	},
+
+	getID: function getID() {
+		return this.$element.data('id');
+	},
+
+	getModelCID: function getModelCID() {
+		return this.$element.data('model-cid');
+	},
+
+	getElementSettings: function getElementSettings(setting) {
+		var elementSettings = {};
+
+		var modelCID = this.getModelCID();
+
+		if (this.isEdit && modelCID) {
+			var settings = elementorFrontend.config.elements.data[modelCID],
+			    attributes = settings.attributes;
+
+			var type = attributes.widgetType || attributes.elType;
+
+			if (attributes.isInner) {
+				type = 'inner-' + type;
+			}
+
+			var settingsKeys = elementorFrontend.config.elements.keys[type];
+
+			if (!settingsKeys) {
+				settingsKeys = elementorFrontend.config.elements.keys[type] = [];
+
+				jQuery.each(settings.controls, function (name, control) {
+					if (control.frontend_available) {
+						settingsKeys.push(name);
+					}
+				});
+			}
+
+			jQuery.each(settings.getActiveControls(), function (controlKey) {
+				if (-1 !== settingsKeys.indexOf(controlKey)) {
+					elementSettings[controlKey] = attributes[controlKey];
+				}
+			});
+		} else {
+			elementSettings = this.$element.data('settings') || {};
+		}
+
+		return this.getItems(elementSettings, setting);
+	},
+
+	getEditSettings: function getEditSettings(setting) {
+		var attributes = {};
+
+		if (this.isEdit) {
+			attributes = elementorFrontend.config.elements.editSettings[this.getModelCID()].attributes;
+		}
+
+		return this.getItems(attributes, setting);
+	},
+
+	getCurrentDeviceSetting: function getCurrentDeviceSetting(settingKey) {
+		return elementorFrontend.getCurrentDeviceSetting(this.getElementSettings(), settingKey);
+	},
+
+	onDestroy: function onDestroy() {
+		this.removeEditorListeners();
+
+		if (this.unbindEvents) {
+			this.unbindEvents();
+		}
 	}
 });
 
 /***/ }),
 
-/***/ 6:
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -434,7 +674,7 @@ var Module = function Module() {
 		var instanceSettings = instanceParams[0];
 
 		if (instanceSettings) {
-			$.extend(settings, instanceSettings);
+			$.extend(true, settings, instanceSettings);
 		}
 	};
 
@@ -614,13 +854,13 @@ module.exports = Module;
 
 /***/ }),
 
-/***/ 7:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _module = __webpack_require__(6);
+var _module = __webpack_require__(5);
 
 var _module2 = _interopRequireDefault(_module);
 

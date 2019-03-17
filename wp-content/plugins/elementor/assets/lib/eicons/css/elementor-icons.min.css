@@ -1,4 +1,4 @@
-@font-face {font-family: eicons;src: url("../fonts/eicons.eot?4.2.0");src: url("../fonts/eicons.eot?4.2.0#iefix") format("embedded-opentype"),url("../fonts/eicons.woff2?4.2.0") format("woff2"),url("../fonts/eicons.woff?4.2.0") format("woff"),url("../fonts/eicons.ttf?4.2.0") format("truetype"),url("../fonts/eicons.svg?4.2.0#eicon") format("svg");font-weight: 400;font-style: normal;}
+@font-face {font-family: eicons;src: url("../fonts/eicons.eot?4.3.0");src: url("../fonts/eicons.eot?4.3.0#iefix") format("embedded-opentype"),url("../fonts/eicons.woff2?4.3.0") format("woff2"),url("../fonts/eicons.woff?4.3.0") format("woff"),url("../fonts/eicons.ttf?4.3.0") format("truetype"),url("../fonts/eicons.svg?4.3.0#eicon") format("svg");font-weight: 400;font-style: normal;}
 [class*=" eicon-"], [class^=eicon] {display: inline-block;font-family: eicons;font-size: inherit;font-weight: 400;font-style: normal;font-variant: normal;line-height: 1;text-rendering: auto;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 @keyframes a {0% {transform: rotate(0deg);}
 	to {transform: rotate(359deg);}}
