@@ -240,6 +240,7 @@
 ul.elementor-icon-list-items.elementor-inline-items {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;}
 ul.elementor-icon-list-items.elementor-inline-items .elementor-inline-item {word-break: break-word;}
 .elementor-grid .elementor-grid-item {word-break: break-word;min-width: 0;}
+.elementor-grid-0 .elementor-grid {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;overflow: hidden;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;}
 .elementor-grid-1 .elementor-grid {grid-template-columns: repeat(1,1fr);display: grid;}
 .elementor-grid-2 .elementor-grid {grid-template-columns: repeat(2,1fr);display: grid;}
 .elementor-grid-3 .elementor-grid {grid-template-columns: repeat(3,1fr);display: grid;}
@@ -251,9 +252,9 @@ ul.elementor-icon-list-items.elementor-inline-items .elementor-inline-item {word
 .elementor-grid-9 .elementor-grid {grid-template-columns: repeat(9,1fr);display: grid;}
 .elementor-grid-10 .elementor-grid {grid-template-columns: repeat(10,1fr);display: grid;}
 .elementor-grid-11 .elementor-grid {grid-template-columns: repeat(11,1fr);display: grid;}
-.elementor-grid-0 .elementor-grid {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;overflow: hidden;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;}
 .elementor-grid-12 .elementor-grid {grid-template-columns: repeat(12,1fr);display: grid;}
-@media (max-width:1024px) {.elementor-grid-tablet-1 .elementor-grid {grid-template-columns: repeat(1,1fr);display: grid;}
+@media (max-width:1024px) {.elementor-grid-tablet-0 .elementor-grid {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;overflow: hidden;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;}
+	.elementor-grid-tablet-1 .elementor-grid {grid-template-columns: repeat(1,1fr);display: grid;}
 	.elementor-grid-tablet-2 .elementor-grid {grid-template-columns: repeat(2,1fr);display: grid;}
 	.elementor-grid-tablet-3 .elementor-grid {grid-template-columns: repeat(3,1fr);display: grid;}
 	.elementor-grid-tablet-4 .elementor-grid {grid-template-columns: repeat(4,1fr);display: grid;}
@@ -264,9 +265,9 @@ ul.elementor-icon-list-items.elementor-inline-items .elementor-inline-item {word
 	.elementor-grid-tablet-9 .elementor-grid {grid-template-columns: repeat(9,1fr);display: grid;}
 	.elementor-grid-tablet-10 .elementor-grid {grid-template-columns: repeat(10,1fr);display: grid;}
 	.elementor-grid-tablet-11 .elementor-grid {grid-template-columns: repeat(11,1fr);display: grid;}
-	.elementor-grid-tablet-0 .elementor-grid {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;overflow: hidden;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;}
 	.elementor-grid-tablet-12 .elementor-grid {grid-template-columns: repeat(12,1fr);display: grid;}}
-@media (max-width:767px) {.elementor-grid-mobile-1 .elementor-grid {grid-template-columns: repeat(1,1fr);display: grid;}
+@media (max-width:767px) {.elementor-grid-mobile-0 .elementor-grid {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;overflow: hidden;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;}
+	.elementor-grid-mobile-1 .elementor-grid {grid-template-columns: repeat(1,1fr);display: grid;}
 	.elementor-grid-mobile-2 .elementor-grid {grid-template-columns: repeat(2,1fr);display: grid;}
 	.elementor-grid-mobile-3 .elementor-grid {grid-template-columns: repeat(3,1fr);display: grid;}
 	.elementor-grid-mobile-4 .elementor-grid {grid-template-columns: repeat(4,1fr);display: grid;}
@@ -277,7 +278,6 @@ ul.elementor-icon-list-items.elementor-inline-items .elementor-inline-item {word
 	.elementor-grid-mobile-9 .elementor-grid {grid-template-columns: repeat(9,1fr);display: grid;}
 	.elementor-grid-mobile-10 .elementor-grid {grid-template-columns: repeat(10,1fr);display: grid;}
 	.elementor-grid-mobile-11 .elementor-grid {grid-template-columns: repeat(11,1fr);display: grid;}
-	.elementor-grid-mobile-0 .elementor-grid {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;overflow: hidden;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;}
 	.elementor-grid-mobile-12 .elementor-grid {grid-template-columns: repeat(12,1fr);display: grid;}}
 @media (min-width:1025px) {#elementor-device-mode:after {content: "desktop";}}
 @media (min-width:768px) and (max-width:1024px) {#elementor-device-mode:after {content: "tablet";}}

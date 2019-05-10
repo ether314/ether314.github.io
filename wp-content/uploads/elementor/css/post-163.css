@@ -1,0 +1,5 @@
+.elementor-msie .elementor-163 .elementor-element.elementor-element-44ec409 .elementor-portfolio-item {width: calc(100% / 3);}
+.elementor-163 .elementor-element.elementor-element-44ec409 .elementor-post__thumbnail__link {padding-bottom: calc(.41 * 100%);}
+.elementor-163 .elementor-element.elementor-element-44ec409:after {content: "0.41";position: absolute;color: transparent;}
+@media (max-width:1024px) {.elementor-msie .elementor-163 .elementor-element.elementor-element-44ec409 .elementor-portfolio-item {width: calc(100% / 2);}}
+@media (max-width:767px) {.elementor-msie .elementor-163 .elementor-element.elementor-element-44ec409 .elementor-portfolio-item {width: calc(100% / 1);}}
