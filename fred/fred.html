@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://wdc.portals.interworks.com/fred_20/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Fred WDC</title>
+	<link rel="stylesheet" href="./Fred WDC_files/bootstrap.min.css">
+	<script async="" src="./Fred WDC_files/analytics.js.download"></script><script src="./Fred WDC_files/jquery.min.js.download"></script>
+	<script src="./Fred WDC_files/bootstrap.min.js.download"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="./Fred WDC_files/tableauwdc-2.3.latest.js.download" type="text/javascript"></script>
+	<script type="text/javascript" src="./Fred WDC_files/tableau-output.js.download"></script>
+	<script type="text/javascript" src="./Fred WDC_files/fred.js.download"></script>
+	<link rel="stylesheet" href="./Fred WDC_files/fred.css">
+	
+	<script type="text/javascript">
+		// Google Analytics tracking code
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-6095304-1', 'auto');
+		  ga('send', 'pageview');
+	</script>
+</head>
+
+<body>
+	<div class="navbar navbar-default">
+		<a class="navbar-wdc" href="https://wdc.portals.interworks.com/">
+			<img id="wdc-logo-left" src="./Fred WDC_files/WDC_Logo.png">
+			<div id="wdc-logo-right">
+				<img src="./Fred WDC_files/WDC_Logo_Header.png">
+				<span>U.S. ECONOMIC DATA</span>
+			</div>
+		</a>
+		<a class="navbar-brand" href="https://www.interworks.com/">
+			<img src="./Fred WDC_files/logo.png">
+		</a>
+		<div class="navbar-border">
+			<img src="./Fred WDC_files/WDC_Border.png">
+		</div>
+	</div>
+	<div class="container">
+		<div class="alert alert-danger warning-msg" style="display: block;">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<b>Whoa!</b> We've detected you are loading this in a browser window.<br><br>
+			You can still download the data to a flat file, but for best performance, load this window from Tableau and use the
+			<a href="https://onlinehelp.tableau.com/current/pro/online/windows/en-us/help.htm#examples_web_data_connector.html" target="_blank">Web Data Connector</a>.
+		</div>
+
+		<div class="container">
+			<div class="col-md-4">
+				<img src="./Fred WDC_files/US_Economic_Data_Text.png">
+				<div class="icon-container">
+					<img class="fred-icon income" data-group="income" src="./Fred WDC_files/NationalIncomeExpenditures.png">
+					<img class="fred-icon labor" data-group="labor" src="./Fred WDC_files/PopulationEmploymentLaborMarkets.png">
+				</div>
+				<div class="icon-container">
+					<img class="fred-icon business" data-group="business" src="./Fred WDC_files/ProductionBusinessActivity.png">
+					<img class="fred-icon prices" data-group="prices" src="./Fred WDC_files/Prices.png">
+				</div>
+				<div class="icon-container">
+					<img class="fred-icon finance" data-group="finance" src="./Fred WDC_files/MoneyBankingFinance.png">
+					<img class="fred-icon search" data-group="search" src="./Fred WDC_files/Search.png">
+				</div>
+				<form class="fred-search" style="display: none;">
+					<a href="javascript:void(0)" id="search-cancel">&lt; Back to Quick Add</a>
+					<div class="form-group">
+						<input id="fred-search" class="form-control" placeholder="Search Here">
+					</div>
+					<input type="hidden" name="wdc-ids" id="wdc-ids">
+					<button type="button" class="btn" id="search-wdc">Search</button>
+				</form>
+			</div>
+			<div class="col-md-8">
+				<div class="selected-header">
+					<img src="./Fred WDC_files/Selected_Data.png">
+					<a href="javascript:void(0);" id="clear-wdc" style="display: none;">Clear</a>
+				</div>
+				<div id="wdc-list"><span id="select-text">Select metrics using the buttons on the left.</span></div>
+				<button type="button" class="btn" id="get-wdc" style="display: none;">Get Data</button>
+			</div>
+		</div>
+		<div id="search-results"></div>
+	</div>
+	<footer class="footer">
+		<div class="navbar-border">
+			<img src="./Fred WDC_files/WDC_Border(1).png">
+		</div>
+		<div class="container">
+			<p class="text-muted">All data is ©<a href="https://research.stlouisfed.org/" target="_blank">Federal Reserve Bank of St. Louis</a>. Please refer to the <a href="https://research.stlouisfed.org/legal.html" target="_blank">TOS</a> for usage terms.</p>
+		</div>
+	</footer>
+
+
+
+</body></html>

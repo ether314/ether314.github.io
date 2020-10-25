@@ -1,0 +1,207 @@
+/**
+ * Overrides the Tableau WDC connection to allow hijacking for tab delimited export.
+ * 
+ * @author Derrick Austin <derrick.austin@interworks.com>
+**/
+
+function getSelectedTable(schema) {
+	//check to see if popup form already exists
+	if( $("#get_selected_table").length ) {
+		$("#get_selected_table").show();
+	}
+	else {
+		//build a popup
+		var popupOuter = $("<div>",{'id':"get_selected_table"});
+		var popupInner = $("<div>");
+		popupOuter.append(popupInner);
+		
+		//create dropdown and append to popup
+		var label = $("<label>",{'for':"selected_table"}).text("Select Table");
+		var select = $("<select>",{'id':"selected_table"});
+		for(i=0; i < schema.length; i++) {
+			select.append( $("<option>",{'value':i}).text(schema[i]['id']) );
+		}
+		popupInner.append(label);
+		popupInner.append(select);
+		
+		//create a hidden element to hold schema
+		var hiddenSchema = $("<input>",{'id':'complete_schema','type':"hidden",'value':JSON.stringify(schema)});
+		popupInner.append(hiddenSchema);
+		
+		//create button and set onclick handler
+		var btn = $("<button>").text("Continue");
+		btn.click(selectedTableCallback);
+		popupInner.append(btn);
+		
+		//style everything
+		popupOuter.css({backgroundColor: 'rgba(0,0,0,0.5)',width:'100%',height:'100%',position:'fixed',top:'0'});
+		popupInner.css({backgroundColor: 'white',padding:'1%',display:'inline-block',position:'relative',top:'50%',left:'50%',transform:'translate(-50%,-50%)'});
+		btn.css({display:'block',margin:'20px auto 0'});
+		
+		//add cancel functionality
+		popupOuter.click(function (){ $("#get_selected_table").hide(); });
+		popupInner.click(function (e){e.stopPropagation();});
+		
+		//append popup to body to display
+		$("body").append(popupOuter);
+	}
+}
+function selectedTableCallback() {
+	//get the values from popup
+	var schema = JSON.parse( $("#complete_schema").val() );
+	var selectedTable = $("#selected_table").val();
+	
+	//hide the popup
+	$("#get_selected_table").hide();
+	
+	//call getSchema function
+	tableauOutput.schemaCallback(schema,selectedTable);
+}
+
+tableauOutput = {
+	tableInfo : new Array(),
+	fieldNames : new Array(),
+	data : new Array(),
+	dataCallback : function(data, lastrecord, moreData) {
+		for (i = 0; i < data.length; i++) {
+			
+			output = [];
+			for(var key in data[i]) {
+				output.push(data[i][key]);
+			}
+			
+			tableauOutput.data.push(output);
+		}
+		
+		tableauOutput.submit();
+	},
+	headersCallback : function(fieldNames, fieldTypes) {
+		tableauOutput.fieldNames = fieldNames;
+		window._wdc.getTableData();
+	},
+	doNothing : function()
+	{
+		
+	},
+	appendRows : function (data) {
+		for (i = 0; i < data.length; i++) {
+			
+			output = [];
+			for(var key in data[i]) {
+				output.push(data[i][key]);
+			}
+			
+			tableauOutput.data.push(output);
+		}
+		tableauOutput.submit();
+	},
+	schemaCallback : function(schema, selectedTable) {
+		if(schema.length > 1 && typeof selectedTable == 'undefined') {
+			getSelectedTable(schema);
+		}
+		else {
+			var tableIndex = 0;
+			if(schema.length > 1) {
+				tableIndex = selectedTable;
+			}
+			
+			tableauOutput.fieldNames = new Array();
+			tableauOutput.data = new Array();
+			
+			for (i = 0; i < schema[tableIndex]['columns'].length; i++) {
+				tableauOutput.fieldNames.push(schema[tableIndex]['columns'][i]['alias']);
+			}
+			
+			tableauOutput.tableInfo['id'] = schema[tableIndex]['id'];
+			tableauOutput.tableInfo['alias'] = schema[tableIndex]['alias'];
+			
+			_wdc.getData(tableauOutput, tableauOutput.doNothing);
+		}
+	},
+	submit : function() {
+		// if tableauOutput.rawData.length != undefined then we're using datagen, else we're using the other WDC's
+		if ((tableauOutput.fieldNames.length == 0) && (tableauOutput.rawData.length > 0)) {
+			// get field names
+			var firstRow = tableauOutput.rawData[0];
+			for ([key, value] in Object.entries(firstRow)) {
+				tableauOutput.fieldNames.push(key);
+			}
+			
+			// get data
+			for (i = 0; i < tableauOutput.rawData.length; i++) {
+				var currentRow = tableauOutput.rawData[i];
+				var output = [];
+				for ([key, value] in Object.entries(currentRow)) {
+					output.push(value);
+				}
+
+				tableauOutput.data.push(output);
+			}
+		} else if (tableauOutput.fieldNames.length == 0) {
+			// get field names
+			for (i = 0; i < tableauOutput.rawData['cols'].length; i++) {
+				tableauOutput.fieldNames.push(tableauOutput.rawData['cols'][i]['alias']);
+			}
+			// get data
+			for (i = 0; i < tableauOutput.rawData['dataToReturn'].length; i++) {
+				var output = [];
+				for(var key in tableauOutput.rawData['dataToReturn'][i]) {
+					output.push(tableauOutput.rawData['dataToReturn'][i][key]);
+				}
+				tableauOutput.data.push(output);
+			}
+		}
+		
+		var iframe = document.createElement('iframe');
+		iframe.style.display = "none";
+		document.body.appendChild(iframe);
+		var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+		
+		var form = document.createElement('form');
+		form.action = '/text_output.php';
+		form.method = 'POST';
+		
+		var input = document.createElement('input');
+		input.type = 'hidden';
+		input.name = 'headers';
+		input.value = JSON.stringify(tableauOutput.fieldNames);
+		form.appendChild(input);
+		
+		var input = document.createElement('input');
+		input.type = 'hidden';
+		input.name = 'data';
+		input.value = JSON.stringify(tableauOutput.data);
+		form.appendChild(input);
+		
+		var input = document.createElement('input');
+		input.type = 'hidden';
+		input.name = 'name';
+		input.value = tableau.connectionName;
+		form.appendChild(input);
+		
+		(iframeDoc.body || iframeDoc).appendChild(form);
+		form.submit();
+	}
+};
+
+
+if (tableau.versionNumber == '1.1.1' && typeof tableau.platformVersion === 'undefined') {
+	tableau.submit = function () {
+		tableau.dataCallback    = tableauOutput.dataCallback;
+		tableau.headersCallback = tableauOutput.headersCallback;
+		tableau.initCallback    = tableauOutput.doNothing;
+		
+		window._wdc.init();
+		window._wdc.getColumnHeaders();
+	}
+} else if (tableau.versionNumber == '2.0.0' && typeof tableau.platformVersion === 'undefined' && window.name != 'simulator') {
+	tableau.submit = function () {
+		_tableau._tableDataCallback = tableauOutput.tableDataCallback;
+		_tableau._schemaCallback    = tableauOutput.schemaCallback;
+		_wdc.getSchema(tableauOutput.schemaCallback);
+	}
+} else if (typeof tableau.versionNumber === 'undefined' && typeof tableau.platformVersion === 'undefined') {
+	tableau.submit = function() {
+		tableauOutput.submit();
+	}
+}
